@@ -2,8 +2,11 @@ const express = require("express");
 const rateLimit = require("express-rate-limit");
 const cookieParser = require("cookie-parser");
 const db = require("./models");
+const authRoutes = require("./routes/auth");
 const authenticate = require("./middleware/auth");
 const planLimiter = require("./middleware/planLimiter");
+// const todosRoutes = require("./routes/todos");
+// const productsRoutes = require("./routes/products");
 require("dotenv").config();
 
 const app = express();
@@ -23,6 +26,16 @@ const generalLimiter = rateLimit({
   max: 30,
 });
 app.use(generalLimiter);
+
+// Public routes
+app.use(authRoutes);
+
+// Protected example route
+app.get("/private", authenticate, planLimiter, (req, res) => {
+  res.send(`Welcome ${req.user.username}, plan: ${req.user.plan}`);
+});
+// app.use(todosRoutes);
+// app.use(productsRoutes);
 
 // Sync DB
 db.sequelize.sync().then(() => {
