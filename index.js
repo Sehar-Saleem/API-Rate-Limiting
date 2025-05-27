@@ -5,7 +5,7 @@ const db = require("./models");
 const authRoutes = require("./routes/auth");
 const authenticate = require("./middleware/auth");
 const planLimiter = require("./middleware/planLimiter");
-// const todosRoutes = require("./routes/todos");
+const todosRoutes = require("./routes/todos");
 // const productsRoutes = require("./routes/products");
 require("dotenv").config();
 
@@ -34,7 +34,7 @@ app.use(authRoutes);
 app.get("/private", authenticate, planLimiter, (req, res) => {
   res.send(`Welcome ${req.user.username}, plan: ${req.user.plan}`);
 });
-// app.use(todosRoutes);
+app.use(todosRoutes);
 // app.use(productsRoutes);
 
 // Sync DB
