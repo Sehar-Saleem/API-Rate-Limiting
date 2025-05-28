@@ -6,7 +6,7 @@ const authRoutes = require("./routes/auth");
 const authenticate = require("./middleware/auth");
 const planLimiter = require("./middleware/planLimiter");
 const todosRoutes = require("./routes/todos");
-// const productsRoutes = require("./routes/products");
+const productsRoutes = require("./routes/products");
 require("dotenv").config();
 
 const app = express();
@@ -35,7 +35,7 @@ app.get("/private", authenticate, planLimiter, (req, res) => {
   res.send(`Welcome ${req.user.username}, plan: ${req.user.plan}`);
 });
 app.use(todosRoutes);
-// app.use(productsRoutes);
+app.use(productsRoutes);
 
 // Sync DB
 db.sequelize.sync().then(() => {
