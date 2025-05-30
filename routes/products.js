@@ -26,7 +26,7 @@ router.get(
       });
       res.json(results);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      res.status(500).json({ message: err });
     }
   }
 );
@@ -47,7 +47,7 @@ router.get("/products/name", authenticate, planLimiter, async (req, res) => {
     });
     res.json(results);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err });
   }
 });
 
@@ -71,7 +71,7 @@ router.get(
       });
       res.json(results);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      res.status(500).json({ message: err });
     }
   }
 );
@@ -96,7 +96,7 @@ router.get(
       });
       res.json(results);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      res.status(500).json({ message: err });
     }
   }
 );
@@ -121,7 +121,7 @@ router.get(
       });
       res.json(results);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      res.status(500).json({ message: err });
     }
   }
 );
@@ -136,13 +136,13 @@ router.get(
       const results = await db.Product.findAll({
         where: {
           quantity: {
-            [Op.lt]: 20,
+            [Op.lt]: 10,
           },
         },
       });
       res.json(results);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      res.status(500).json({ message: err });
     }
   }
 );

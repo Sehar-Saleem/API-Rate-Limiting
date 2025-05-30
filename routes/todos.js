@@ -2,6 +2,7 @@ const express = require("express");
 const db = require("../models");
 const authenticate = require("../middleware/auth");
 const planLimiter = require("../middleware/planLimiter");
+const { Op } = db.Sequelize;
 
 const router = express.Router();
 
@@ -16,13 +17,13 @@ router.get("/todos/name", authenticate, planLimiter, async (req, res) => {
     const results = await db.Todo.findAll({
       where: {
         name: {
-          [db.Sequelize.Op.iLike]: `%${search}%`,
+          [Op.iLike]: `%${search}%`,
         },
       },
     });
     res.json(results);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: err });
   }
 });
 
@@ -41,13 +42,13 @@ router.get(
       const results = await db.Todo.findAll({
         where: {
           description: {
-            [db.Sequelize.Op.iLike]: `%${search}%`,
+            [Op.iLike]: `%${search}%`,
           },
         },
       });
       res.json(results);
     } catch (err) {
-      res.status(500).json({ message: err.message });
+      res.status(500).json({ message: err });
     }
   }
 );

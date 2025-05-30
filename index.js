@@ -34,6 +34,8 @@ app.use(authRoutes);
 app.get("/private", authenticate, planLimiter, (req, res) => {
   res.send(`Welcome ${req.user.username}, plan: ${req.user.plan}`);
 });
+
+// Protected routes
 app.use(todosRoutes);
 app.use(productsRoutes);
 
